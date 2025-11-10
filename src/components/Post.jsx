@@ -15,7 +15,7 @@ export function Post({ _id, title, author }) {
 }
 
 Post.propTypes = {
-  _id: PropTypes.string.isRequired,
+  _id: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.shape({
     username: PropTypes.string.isRequired,

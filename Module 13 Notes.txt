@@ -2,5 +2,9 @@ General Notes:
 
 --  When creating a folder it is likde creating a route in the previous 
     blog application
-
 --  For each route create a a page.js file to handle the component 
+
+Module Notes:
+
+-- Database URL:    DATABASE_URL=mongodb://localhost:27017/blog-next
+-- JWT secret:      JWT_SECRET=replace-with-random-secret

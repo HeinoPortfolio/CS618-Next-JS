@@ -1,12 +1,16 @@
 import { FullPost } from '@/components/FullPost'
+import { notFound } from 'next/navigation'
+import { getPostById } from '@/data/posts'
+import { initDatabase } from '@/db/init'
 
-// Will just return the parameter -- the ID
-export default function ViewPostPage({ params }) {
-  const post = {
-    title: `Hello Next.js (${params.id})`,
-    contents: 'This will be fetched from the database later',
-    author: { username: 'Daniel Bugl' },
-  }
+// Will just return the full post and all available informtion ================
+export default async function ViewPostPage({ params }) {
+  await initDatabase()
+
+  const post = await getPostById(params.id)
+
+  if (!post) notFound()
+
   return (
     <FullPost
       title={post.title}
