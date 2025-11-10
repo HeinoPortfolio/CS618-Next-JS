@@ -1,3 +1,5 @@
-export default function CreatePage() {
-  return <strong>Create Post</strong>
+import { CreatePost } from '@/components/CreatePost'
+
+export default function CreatePostPage() {
+  return <CreatePost />
 }

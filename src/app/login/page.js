@@ -1,4 +1,6 @@
-// Login page
+import { Login } from '@/components/Login'
+
+// Login page =================================================================
 export default function LoginPage() {
-  return <strong>Login</strong>
+  return <Login />
 }
