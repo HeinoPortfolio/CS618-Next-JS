@@ -1,6 +1,13 @@
-export function Signup() {
+'use client'
+import { useFormState } from 'react-dom'
+import PropTypes from 'prop-types'
+
+// Function to create a form for signing up a new user ========================
+export function Signup({ signupAction }) {
+  // Signup action is added as a variable =====================================
+  const [state, formAction] = useFormState(signupAction, {})
   return (
-    <form>
+    <form action={formAction}>
       <div>
         <label htmlFor='username'>Username: </label>
         <input type='text' name='username' id='username' />
@@ -12,6 +19,11 @@ export function Signup() {
       </div>
       <br />
       <input type='submit' value='Sign Up' />
+      {state.error ? <strong> Error signing up: {state.error}</strong> : null}
     </form>
   )
+}
+
+Signup.propTypes = {
+  signupAction: PropTypes.func.isRequired,
 }
