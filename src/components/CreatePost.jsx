@@ -1,6 +1,9 @@
-export function CreatePost() {
+import PropTypes from 'prop-types'
+
+// Function to create a post ==================================================
+export function CreatePost({ createPostAction }) {
   return (
-    <form>
+    <form action={createPostAction}>
       <div>
         <label htmlFor='title'>Title: </label>
         <input type='text' name='title' id='title' required />
@@ -12,4 +15,8 @@ export function CreatePost() {
       <input type='submit' value='Create' />
     </form>
   )
+}
+
+CreatePost.propTypes = {
+  createPostAction: PropTypes.func.isRequired,
 }
