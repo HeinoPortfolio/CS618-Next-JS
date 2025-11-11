@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { User } from '@/db/models'
 
+import { unstable_cache as cache } from 'next/cache'
+
 // Create a new user ==========================================================
 export async function createUser({ username, password }) {
   const hashedPassword = await bcrypt.hash(password, 10)
@@ -27,11 +29,16 @@ export async function loginUser({ username, password }) {
 }
 
 // Get user info by their ID ==================================================
-export async function getUserInfoById(userId) {
-  const user = await User.findById(userId)
-  if (!user) throw new Error('user not found!')
-  return { username: user.username }
-}
+export const getUserInfoById = cache(
+  async function getUserInfoById(userId) {
+    const user = await User.findById(userId)
+
+    if (!user) throw new Error('user not found!')
+
+    return { username: user.username }
+  },
+  ['users', 'getUserInfoById'],
+)
 
 // Get the user their ID  by their token ======================================
 export function getUserIdByToken(token) {

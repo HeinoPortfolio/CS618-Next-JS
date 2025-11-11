@@ -5,6 +5,8 @@ import { getUserIdByToken } from '@/data/users'
 import { initDatabase } from '@/db/init'
 import { CreatePost } from '@/components/CreatePost'
 
+import { revalidateTag } from 'next/cache'
+
 // Create post handler ========================================================
 /*
       Will initialize the database
@@ -27,6 +29,9 @@ export default function CreatePostPage() {
       title: formData.get('title'),
       contents: formData.get('contents'),
     })
+
+    // Revalidate the posts to show any new posts =========
+    revalidateTag('posts')
 
     // Redirect to the post page ==========================
     redirect(`/posts/${post._id}`)

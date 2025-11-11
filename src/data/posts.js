@@ -5,6 +5,7 @@ This is where the data will be handled directly.
 
 import 'server-only'
 import { Post } from '@/db/models'
+import { unstable_cache as cache } from 'next/cache'
 
 // Function to create a post in Next.js =======================================
 export async function createPost(userId, { title, contents }) {
@@ -14,14 +15,21 @@ export async function createPost(userId, { title, contents }) {
 
 // Function to list all the posts in the database =============================
 // Note: lean() will convert into a basic JS object =========
-export async function listAllPosts() {
-  return await Post.find({})
-    .sort({ createdAt: 'descending' })
-    .populate('author', 'username')
-    .lean()
-}
+export const listAllPosts = cache(
+  async function listAllPosts() {
+    return await Post.find({})
+      .sort({ createdAt: 'descending' })
+      .populate('author', 'username')
+      .lean()
+  },
+  ['posts', 'listAllPosts'],
+  { tags: ['posts'] },
+)
 
 // Function to get a post bit it's id =========================================
-export async function getPostById(postId) {
-  return await Post.findById(postId).populate('author', 'username').lean()
-}
+export const getPostById = cache(
+  async function getPostById(postId) {
+    return await Post.findById(postId).populate('author', 'username').lean()
+  },
+  ['posts', 'getPostById'],
+)
