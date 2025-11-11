@@ -1,4 +1,5 @@
 'use client'
+
 import { useFormState } from 'react-dom'
 import PropTypes from 'prop-types'
 
@@ -6,6 +7,7 @@ import PropTypes from 'prop-types'
 export function Signup({ signupAction }) {
   // Signup action is added as a variable =====================================
   const [state, formAction] = useFormState(signupAction, {})
+
   return (
     <form action={formAction}>
       <div>

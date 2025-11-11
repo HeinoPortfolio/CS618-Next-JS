@@ -10,7 +10,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  const user = { username: 'matt' }
+  const user = { username: 'test_username' }
   return (
     <html lang='en'>
       <body>
